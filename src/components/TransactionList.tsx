@@ -7,7 +7,7 @@ interface Transaction {
   description: string;
   amount: number;
   category: string;
-  type: 'income' | 'expense';
+  type: 'INCOME' | 'EXPENSE';
   date: string;
 }
 
@@ -15,7 +15,7 @@ interface TransactionListProps {
   transactions: Transaction[];
 }
 
-const getCategoryColor = (category: string, type: 'income' | 'expense') => {
+const getCategoryColor = (category: string, type: 'INCOME' | 'EXPENSE') => {
   const colors = {
     // Income categories
     'Trabajo': 'bg-success/10 text-success border-success/20',
@@ -69,11 +69,11 @@ export const TransactionList = ({ transactions }: TransactionListProps) => {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className={`p-2 rounded-full ${
-                  transaction.type === 'income' 
+                  transaction.type === 'INCOME' 
                     ? 'bg-success/10 text-success' 
                     : 'bg-destructive/10 text-destructive'
                 }`}>
-                  {transaction.type === 'income' ? (
+                  {transaction.type === 'INCOME' ? (
                     <TrendingUp className="h-4 w-4" />
                   ) : (
                     <TrendingDown className="h-4 w-4" />
@@ -102,11 +102,11 @@ export const TransactionList = ({ transactions }: TransactionListProps) => {
               
               <div className="text-right">
                 <div className={`text-lg font-semibold ${
-                  transaction.type === 'income' 
+                  transaction.type === 'INCOME' 
                     ? 'text-success' 
                     : 'text-destructive'
                 }`}>
-                  {transaction.type === 'income' ? '+' : '-'}${transaction.amount.toLocaleString()}
+                  {transaction.type === 'INCOME' ? '+' : '-'}${transaction.amount.toLocaleString()}
                 </div>
               </div>
             </div>

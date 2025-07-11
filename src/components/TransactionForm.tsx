@@ -12,7 +12,7 @@ interface TransactionFormProps {
     description: string;
     amount: number;
     category: string;
-    type: 'income' | 'expense';
+    type: 'INCOME' | 'EXPENSE';
     date: string;
   }) => void;
   onCancel: () => void;
@@ -40,7 +40,7 @@ export const TransactionForm = ({ onSubmit, onCancel }: TransactionFormProps) =>
       description: formData.description,
       amount: parseFloat(formData.amount),
       category: formData.category,
-      type: formData.type,
+      type: formData.type.toUpperCase() as 'INCOME' | 'EXPENSE',
       date: formData.date
     });
   };
