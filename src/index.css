@@ -122,5 +122,84 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
+  }
+
+  /* Improve touch targets on mobile */
+  @media (max-width: 640px) {
+    button, input, select, textarea {
+      min-height: 44px;
+    }
+    
+    /* Improve scrolling on mobile */
+    .overflow-y-auto {
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* Smooth transitions for responsive elements */
+  .transition-responsive {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Hide scrollbar on mobile for cleaner look */
+  @media (max-width: 640px) {
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+@layer components {
+  /* Responsive text utilities */
+  .text-responsive-sm {
+    @apply text-xs sm:text-sm;
+  }
+  
+  .text-responsive-base {
+    @apply text-sm sm:text-base;
+  }
+  
+  .text-responsive-lg {
+    @apply text-base sm:text-lg;
+  }
+  
+  .text-responsive-xl {
+    @apply text-lg sm:text-xl;
+  }
+  
+  .text-responsive-2xl {
+    @apply text-xl sm:text-2xl;
+  }
+  
+  .text-responsive-3xl {
+    @apply text-2xl sm:text-3xl;
+  }
+
+  /* Responsive spacing utilities */
+  .space-responsive {
+    @apply space-y-2 sm:space-y-3;
+  }
+  
+  .gap-responsive {
+    @apply gap-2 sm:gap-3;
+  }
+  
+  .p-responsive {
+    @apply p-2 sm:p-4;
+  }
+  
+  .px-responsive {
+    @apply px-3 sm:px-4;
+  }
+  
+  .py-responsive {
+    @apply py-2 sm:py-3;
   }
 }
