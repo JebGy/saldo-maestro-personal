@@ -14,8 +14,10 @@ interface TransactionFormProps {
     category: string;
     type: 'INCOME' | 'EXPENSE';
     date: string;
+    userId?: number;
   }) => void;
   onCancel: () => void;
+  userId?: number;
 }
 
 const CATEGORIES = {
@@ -23,7 +25,7 @@ const CATEGORIES = {
   expense: ['Alimentación', 'Transporte', 'Vivienda', 'Entretenimiento', 'Salud', 'Educación', 'Otros Gastos']
 };
 
-export const TransactionForm = ({ onSubmit, onCancel }: TransactionFormProps) => {
+export const TransactionForm = ({ onSubmit, onCancel, userId }: TransactionFormProps) => {
   const [formData, setFormData] = useState({
     description: '',
     amount: '',
@@ -41,7 +43,8 @@ export const TransactionForm = ({ onSubmit, onCancel }: TransactionFormProps) =>
       amount: parseFloat(formData.amount),
       category: formData.category,
       type: formData.type.toUpperCase() as 'INCOME' | 'EXPENSE',
-      date: formData.date
+      date: formData.date,
+      ...(userId ? { userId } : {}),
     });
   };
 

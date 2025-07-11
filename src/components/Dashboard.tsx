@@ -23,7 +23,13 @@ interface Transaction {
   date: string;
 }
 
-const Dashboard = () => {
+// NUEVO: Definir props para Dashboard
+interface DashboardProps {
+  user: any;
+  onLogout: () => void;
+}
+
+const Dashboard = ({ user, onLogout }: DashboardProps) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
@@ -39,7 +45,7 @@ const Dashboard = () => {
 
   const fetchTransactions = async () => {
     setLoading(true);
-    const data = await getTransactions();
+    const data = await getTransactions(user.id);
     setTransactions(Array.isArray(data) ? data : []);
     setLoading(false);
   };
@@ -84,10 +90,11 @@ const Dashboard = () => {
     return true;
   });
 
-  const handleAddTransaction = async (transaction: Omit<Transaction, 'id'>) => {
+  const handleAddTransaction = async (transaction: Omit<Transaction, 'id'> & { userId?: number }) => {
     await addTransaction({
       ...transaction,
       type: transaction.type.toUpperCase() as 'INCOME' | 'EXPENSE',
+      userId: user.id,
     });
     fetchTransactions();
     setShowForm(false);
@@ -136,6 +143,12 @@ const Dashboard = () => {
               <span className="hidden sm:inline">Nueva Transacción</span>
               <span className="sm:hidden">Nueva</span>
             </Button>
+            {/* NUEVO: Botón de cerrar sesión */}
+            {user && (
+              <Button onClick={onLogout} variant="outline" size="sm">
+                Cerrar sesión
+              </Button>
+            )}
           </div>
         </div>
 
@@ -316,6 +329,7 @@ const Dashboard = () => {
           <TransactionForm 
             onSubmit={handleAddTransaction}
             onCancel={() => setShowForm(false)}
+            userId={user.id}
           />
         )}
       </div>

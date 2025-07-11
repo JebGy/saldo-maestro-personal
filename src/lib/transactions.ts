@@ -5,22 +5,26 @@ export async function addTransaction({
   category,
   type,
   date,
+  userId,
 }: {
   amount: number;
   description: string;
   category: string;
   type: "INCOME" | "EXPENSE";
   date: string;
+  userId: number;
 }) {
-  // Convertir la fecha a formato ISO-8601 completo
   const isoDate = new Date(date + 'T00:00:00.000Z').toISOString();
-  
+  const token = localStorage.getItem("token");
   const res = await fetch(
-    "https://amaicontrolback.vercel.app/api/agregarregistro",
+    "/api/agregarregistro",
     {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount, description, category, type, date: isoDate }),
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify({ amount, description, category, type, date: isoDate, userId }),
     }
   );
   if (!res.ok) throw new Error("Error al agregar registro");
@@ -28,9 +32,15 @@ export async function addTransaction({
 }
 
 // Función para leer registros usando la API externa y filtros
-export async function getTransactions() {
+export async function getTransactions(userId: number) {
+  const token = localStorage.getItem("token");
   const res = await fetch(
-    `https://amaicontrolback.vercel.app/api/leerregistro`
+    `/api/leerregistro?userId=${userId}`,
+    {
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    }
   );
   if (!res.ok) throw new Error("Error al leer registros");
   return res.json();
