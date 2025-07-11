@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 80,
+    allowedHosts: ["amaicontrol.lat", "www.amaicontrol.lat"],
     proxy: {
       '/api': {
         target: 'https://amaicontrolback.vercel.app',
