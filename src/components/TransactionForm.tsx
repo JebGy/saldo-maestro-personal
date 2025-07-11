@@ -75,7 +75,7 @@ export const TransactionForm = ({ onSubmit, onCancel }: TransactionFormProps) =>
               >
                 <Plus className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                 <span className="hidden sm:inline">Ingreso</span>
-                <span className="sm:hidden">+</span>
+                <span className="hidden lg:inline">+</span>
               </Button>
               <Button
                 type="button"
@@ -85,7 +85,7 @@ export const TransactionForm = ({ onSubmit, onCancel }: TransactionFormProps) =>
               >
                 <Minus className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                 <span className="hidden sm:inline">Gasto</span>
-                <span className="sm:hidden">-</span>
+                <span className="hidden lg:inline">-</span>
               </Button>
             </div>
 
